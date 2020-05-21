@@ -1,0 +1,43 @@
+<div class="main user-show">
+  <div class="container">
+    <div class="user">
+      <img src="<%= "/user_images/#{@user.image_name}" %>">
+      <h2><%= @user.name %></h2>
+      <p><%= @user.email %></p>
+      <p><%= @user.introduction %></p>
+      <% if @user.id != @current_user.id %>
+        <% if Relationship.find_by(follower_id: @current_user.id, follwed_id: @user.id) %>
+          <%= link_to("フォローをやめる", "/relationships/#{@user.id}/destroy", {method: "user"}) %>
+        <% else %>
+          <%= link_to("フォローする", "/relationships/#{@user.id}/create", {method: "user"}) %>
+        <% end %>
+      <% end %>
+      フォロー
+      <%= @relationships_follower_count %>
+      フォロワー
+      <%= @relationships_follwed_count %>
+      <% if @user.id == @current_user.id %>
+        <%= link_to("編集", "/users/#{@user.id}/edit") %>
+      <% end %>
+    </div>
+
+    <ul class="user-tabs">
+      <li class="active"><%= link_to("投稿", "/users/#{@user.id}") %></li>
+      <li><%= link_to("いいね!", "/users/#{@user.id}/likes") %></li>
+    </ul>
+
+    <% @user.posts.each do |post| %>
+      <div class="posts-index-item">
+        <div class="post-left">
+          <img src="<%= "/user_images/#{post.user.image_name}" %>">
+        </div>
+        <div class="post-right">
+          <div class="post-user-name">
+            <%= link_to(post.user.name, "/users/#{post.user.id}") %>
+          </div>
+          <%= link_to(post.content, "/posts/#{post.id}") %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

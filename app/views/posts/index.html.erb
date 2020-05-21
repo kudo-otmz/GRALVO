@@ -1,0 +1,22 @@
+<div class="main posts-index">
+  <div class="container">
+    <% @posts.each do |post| %>
+    <% if Relationship.find_by(follower_id: @current_user.id) || Post.find_by(user_id: @current_user.id) %>
+      <div class="posts-index-item">
+        <div class="post-left">
+          <!--　ユーザーの画像を表示 -->
+          <img src="<%= "/user_images/#{post.user.image_name}" %>">
+        </div>
+        <div class="post-right">
+          <div class="post-user-name">
+            <!-- ユーザーの名前を表示 -->
+            <%= link_to(post.user.name, "/users/#{post.user.id}") %>
+          </div>
+          <!-- ユーザーの投稿内容を表示 -->
+          <%= link_to(post.content, "/posts/#{post.id}") %>
+        </div>
+      </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

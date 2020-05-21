@@ -1,0 +1,28 @@
+<div class="main users-new">
+  <div class="container">
+    <div class="form-heading">新規ユーザー登録</div>
+    <div class="form users-form">
+      <div class="form-body">
+        <!-- エラーメッセージの表示 -->
+        <% @user.errors.full_messages.each do |message| %>
+          <div class="form-error">
+            <%= message %>
+          </div>
+        <% end %>
+
+        <%= form_tag("/users/create") do %>
+          <p>ユーザー名</p>
+          <!-- 初期値の設定 -->
+          <input name="name" value="<%= @user.name %>">
+          <p>メールアドレス</p>
+          <!-- 初期値の設定 -->
+          <input name="email" value="<%= @user.email %>">
+          <p>パスワード</p>
+          <!-- パスワード用のフォーム -->
+          <input type="password" name="password" value="<%= @user.password %>">
+          <input type="submit" value="新規登録">
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
