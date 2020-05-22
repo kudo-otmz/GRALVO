@@ -5,6 +5,8 @@
       <h2><%= @user.name %></h2>
       <p><%= @user.email %></p>
       <p><%= @user.introduction %></p>
+      <p>所在地 : <%= @user.location %></p>
+      <p>Home Gym : <%= @user.home_gym %></p>
       <% if @user.id != @current_user.id %>
         <% if Relationship.find_by(follower_id: @current_user.id, follwed_id: @user.id) %>
           <%= link_to("フォローをやめる", "/relationships/#{@user.id}/destroy", {method: "user"}) %>
